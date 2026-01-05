@@ -33,10 +33,10 @@ const AboutSection = () => {
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image */}
+          {/* Image with pink/rose accent background */}
           <div className="relative order-2 lg:order-1">
-            <div className="relative rounded-2xl overflow-hidden shadow-medium">
-              <div className="absolute inset-0 bg-accent/30 rounded-2xl -z-10 translate-x-4 translate-y-4" />
+            <div className="absolute inset-0 bg-accent rounded-2xl translate-x-3 translate-y-3" />
+            <div className="relative rounded-2xl overflow-hidden">
               <img
                 src={interiorImage}
                 alt="Elegant interior decor at Toraja Hill Stop Guesthouse with tropical plant and rattan lamp"
@@ -58,7 +58,7 @@ const AboutSection = () => {
               <p>
                 Nestled in the highlands, Toraja Hill Stop Guesthouse offers a
                 peaceful retreat for travelers seeking authenticity. Whether
-                you're here to explore the famous Buntu Burake Jesus Statue or
+                you are here to explore the famous Buntu Burake Jesus Statue or
                 immerse yourself in the unique funeral ceremonies, our
                 guesthouse provides the perfect base.
               </p>
@@ -70,14 +70,13 @@ const AboutSection = () => {
             </div>
 
             {/* Amenities Grid */}
-            <ul className="grid grid-cols-2 gap-4" role="list">
-              {amenities.map((amenity, index) => (
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-4" role="list">
+              {amenities.map((amenity) => (
                 <li
                   key={amenity.title}
-                  className="flex items-start gap-3 p-4 bg-card rounded-xl transition-all duration-300 hover:shadow-soft hover:-translate-y-0.5"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="flex items-center gap-3"
                 >
-                  <div className="p-2 bg-primary/10 rounded-lg">
+                  <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
                     <amenity.icon
                       className="w-5 h-5 text-primary"
                       aria-hidden="true"
