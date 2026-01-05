@@ -35,8 +35,8 @@ const AboutSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image with pink/rose accent background */}
           <div className="relative order-2 lg:order-1">
-            <div className="absolute inset-0 bg-accent rounded-2xl translate-x-3 translate-y-3" />
-            <div className="relative rounded-2xl overflow-hidden">
+            <div className="absolute inset-0 bg-accent rounded-3xl rotate-3 scale-[1.02]" />
+            <div className="relative rounded-2xl overflow-hidden shadow-lg">
               <img
                 src={interiorImage}
                 alt="Elegant interior decor at Toraja Hill Stop Guesthouse with tropical plant and rattan lamp"
