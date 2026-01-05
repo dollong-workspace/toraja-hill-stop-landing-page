@@ -1,3 +1,5 @@
+# Toraja Hill Stop Guesthouse
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +14,10 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://torajahillstop.com/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
