@@ -22,18 +22,17 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center pt-20">
         <div className="max-w-3xl mx-auto">
-          {/* Pre-headline Badge */}
-          <span className="inline-block bg-accent/80 text-primary font-body text-sm md:text-base uppercase tracking-[0.15em] px-5 py-2 rounded-full mb-6 animate-fade-in-up">
+          {/* Pre-headline */}
+          <p className="text-primary font-body text-sm md:text-base uppercase tracking-[0.2em] mb-4 animate-fade-in-up">
             Welcome to Tana Toraja
-          </span>
+          </p>
 
           {/* Main Headline */}
           <h1
             id="hero-heading"
             className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-in-up animation-delay-100"
           >
-            Experience Serenity at
-            <br />
+            Experience Serenity at{" "}
             <span className="text-primary">Toraja Hill Stop</span>
           </h1>
 
