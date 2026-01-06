@@ -59,7 +59,7 @@ const Header = () => {
             </a>
           ))}
           <Button variant="cta" size="sm" asChild>
-            <a href="#booking">
+            <a href="/booking">
               <Calendar className="w-4 h-4" aria-hidden="true" />
               Book Now
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -98,7 +98,7 @@ const Header = () => {
               </a>
             ))}
             <Button variant="cta" className="w-full mt-2" asChild>
-              <a href="#booking" onClick={() => setIsMobileMenuOpen(false)}>
+              <a href="/booking" onClick={() => setIsMobileMenuOpen(false)}>
                 <Calendar className="w-4 h-4" aria-hidden="true" />
                 Book Now
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
