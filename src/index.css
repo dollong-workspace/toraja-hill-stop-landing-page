@@ -1,13 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import "@fontsource/playfair-display/400.css";
 @import "@fontsource/playfair-display/700.css";
 @import "@fontsource/inter/300.css";
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Toraja Hill Stop Guesthouse Design System
    Warm, earthy theme reflecting Toraja's natural beauty
@@ -26,7 +26,7 @@
     --popover-foreground: 0 0% 20%;
 
     /* Terracotta primary */
-    --primary: 14 45% 59%; /* Terracotta #C27E6A */
+    --primary: 17 51 47; /* Terracotta #C27E6A */
     --primary-foreground: 0 0% 100%;
 
     /* Muted olive green */
@@ -37,6 +37,7 @@
     --muted: 18 40% 90%;
     --muted-foreground: 0 0% 35%;
 
+    --accent: 26 49 91; /* Soft warm brown #f3e6dc */
     --accent: 18 50% 79%; /* Soft warm pink #E8B8AA */
     --accent-foreground: 0 0% 20%;
 
@@ -140,7 +141,12 @@
     @apply bg-background text-foreground font-body antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading;
   }
 }
@@ -181,7 +187,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {

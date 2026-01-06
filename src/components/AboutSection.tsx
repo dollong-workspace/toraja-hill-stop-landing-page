@@ -31,7 +31,7 @@ const AboutSection = () => {
       className="py-20 lg:py-28 bg-background"
       aria-labelledby="about-heading"
     >
-      <div className="container mx-auto px-4 lg:px-8">
+      <div className="container overflow-hidden mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image with pink/rose accent background */}
           <div className="relative order-2 lg:order-1">
@@ -57,8 +57,8 @@ const AboutSection = () => {
             <div className="space-y-4 font-body text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
               <p>
                 Nestled in the highlands, Toraja Hill Stop Guesthouse offers a
-                peaceful retreat for travelers seeking authenticity. Whether
-                you are here to explore the famous Buntu Burake Jesus Statue or
+                peaceful retreat for travelers seeking authenticity. Whether you
+                are here to explore the famous Buntu Burake Jesus Statue or
                 immerse yourself in the unique funeral ceremonies, our
                 guesthouse provides the perfect base.
               </p>
@@ -72,10 +72,7 @@ const AboutSection = () => {
             {/* Amenities Grid */}
             <ul className="grid grid-cols-2 gap-x-8 gap-y-4" role="list">
               {amenities.map((amenity) => (
-                <li
-                  key={amenity.title}
-                  className="flex items-center gap-3"
-                >
+                <li key={amenity.title} className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
                     <amenity.icon
                       className="w-5 h-5 text-primary"

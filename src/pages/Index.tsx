@@ -10,7 +10,9 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Toraja Hill Stop Guesthouse | Retreat Alam di Tana Toraja, Indonesia</title>
+        <title>
+          Toraja Hill Stop Guesthouse | Retreat Alam di Tana Toraja, Indonesia
+        </title>
         <meta
           name="description"
           content="Nikmati ketenangan di Toraja Hill Stop Guesthouse, penginapan nyaman di pegunungan Tana Toraja. Fasilitas lengkap, sarapan inklusif, dekat Patung Jesus Buntu Burake."
@@ -20,7 +22,10 @@ const Index = () => {
           content="guesthouse Toraja, penginapan Tana Toraja, retreat alam Indonesia, Buntu Burake, akomodasi Rantepao, hotel Makale"
         />
         <link rel="canonical" href="https://torajahillstop.com" />
-        <meta property="og:title" content="Toraja Hill Stop Guesthouse | Experience Serenity in Toraja" />
+        <meta
+          property="og:title"
+          content="Toraja Hill Stop Guesthouse | Experience Serenity in Toraja"
+        />
         <meta
           property="og:description"
           content="Your comfortable sanctuary amidst the misty mountains and rich culture of Toraja."
@@ -41,14 +46,17 @@ const Index = () => {
               addressRegion: "South Sulawesi",
               addressCountry: "ID",
             },
-            telephone: "+6281234567890",
+            telephone: "+6281354617616",
             email: "stay@torajahillstop.com",
             priceRange: "$$",
             amenityFeature: [
               { "@type": "LocationFeatureSpecification", name: "Free Wi-Fi" },
               { "@type": "LocationFeatureSpecification", name: "Free Parking" },
               { "@type": "LocationFeatureSpecification", name: "Hot Shower" },
-              { "@type": "LocationFeatureSpecification", name: "Breakfast Included" },
+              {
+                "@type": "LocationFeatureSpecification",
+                name: "Breakfast Included",
+              },
             ],
           })}
         </script>

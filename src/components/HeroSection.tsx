@@ -23,7 +23,7 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center pt-20">
         <div className="max-w-3xl mx-auto">
           {/* Pre-headline Badge */}
-          <span className="inline-block bg-accent/80 text-primary font-body text-sm md:text-base uppercase tracking-[0.15em] px-5 py-2 rounded-full mb-6 animate-fade-in-up">
+          <span className="inline-block bg-accent/80 text-primary font-semibold text-sm md:text-base uppercase tracking-[0.15em] px-5 py-2 rounded-full mb-6 animate-fade-in-up">
             Welcome to Tana Toraja
           </span>
 
@@ -51,9 +51,14 @@ const HeroSection = () => {
                 Check Availability
               </a>
             </Button>
-            <Button variant="outline" size="lg" className="border-foreground/20 hover:bg-foreground/5" asChild>
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-foreground/20 hover:bg-foreground/5"
+              asChild
+            >
               <a
-                href="https://wa.me/6281234567890"
+                href="https://wa.me/6281354617616"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Contact us via WhatsApp"

@@ -5,19 +5,20 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Address",
-    value: "Jl. Poros Makale-Rantepao, Tana Toraja",
+    value:
+      "Jl. Nusantara, Bombongan, Kec. Makale, Kabupaten Tana Toraja, Sulawesi Selatan 91811",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+62 812-3456-7890",
-    href: "tel:+6281234567890",
+    value: "+62 813-5461-7616",
+    href: "tel:+6281354617616",
   },
   {
     icon: Mail,
     label: "Email",
-    value: "stay@torajahillstop.com",
-    href: "mailto:stay@torajahillstop.com",
+    value: "me.doltonsedward@gmail.com",
+    href: "mailto:me.doltonsedward@gmail.com",
   },
 ];
 
@@ -76,7 +77,7 @@ const LocationSection = () => {
             {/* CTA Button */}
             <Button variant="cta" size="lg" asChild>
               <a
-                href="https://maps.google.com/?q=Tana+Toraja+Indonesia"
+                href="https://maps.google.com/?q=Toraja+hill+stop+guesthouse"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open location in Google Maps"
@@ -91,7 +92,7 @@ const LocationSection = () => {
           {/* Map */}
           <div className="relative rounded-2xl overflow-hidden shadow-medium h-[400px] lg:h-[500px]">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127281.75875671!2d119.8!3d-3.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d93f84e3b234567%3A0x12345!2sTana%20Toraja!5e0!3m2!1sen!2sid!4v1699000000000!5m2!1sen!2sid"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248.9984923566498!2d119.85251688256223!3d-3.101068139486976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d93ed0013df036b%3A0xff228ef5c0b21818!2sToraja%20hill%20stop%20guesthouse!5e0!3m2!1sid!2sid!4v1767677878429!5m2!1sid!2sid"
               width="100%"
               height="100%"
               style={{ border: 0 }}
