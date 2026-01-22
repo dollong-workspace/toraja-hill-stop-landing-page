@@ -1,53 +1,90 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { format, differenceInDays } from "date-fns";
-import { Calendar as CalendarIcon, Users, Home, ArrowLeft, MessageCircle } from "lucide-react";
+import { Users, Bed, Wifi, Coffee, CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
-// Mock rooms data - in production this would come from Supabase
+import bedroomImg from "@/assets/bedroom.jpg";
+
+// Room data - in production this would come from Supabase
 const ROOMS = [
-  { id: "1", room_number: "1", name: "Room 1 - Mountain View", price_per_night: 350000 },
-  { id: "2", room_number: "2", name: "Room 2 - Garden View", price_per_night: 350000 },
-  { id: "3", room_number: "3", name: "Room 3 - Deluxe Suite", price_per_night: 500000 },
+  { 
+    id: "1", 
+    room_number: "Kamar 1", 
+    name: "Deluxe Mountain View", 
+    price_per_night: 750000,
+    description: "Experience the breathtaking beauty of Toraja from our Deluxe Mountain View room. This spacious unit features floor-to-ceiling windows, a private balcony for morning coffee, and a modern en-suite bathroom with hot water rain shower.",
+    amenities: ["2 Guests", "King Bed", "Fast WiFi", "Breakfast"],
+    image: bedroomImg,
+  },
+  { 
+    id: "2", 
+    room_number: "Kamar 2", 
+    name: "Garden Retreat", 
+    price_per_night: 650000,
+    description: "A peaceful sanctuary overlooking our lush tropical garden. Wake up to birdsong and enjoy the serene atmosphere of traditional Torajan hospitality with modern comfort.",
+    amenities: ["2 Guests", "Queen Bed", "Fast WiFi", "Breakfast"],
+    image: bedroomImg,
+  },
+  { 
+    id: "3", 
+    room_number: "Kamar 3", 
+    name: "Traditional Suite", 
+    price_per_night: 850000,
+    description: "Our signature room featuring authentic Torajan wood carvings and textiles. Experience the rich cultural heritage while enjoying premium amenities and stunning highland views.",
+    amenities: ["2 Guests", "King Bed", "Fast WiFi", "Breakfast"],
+    image: bedroomImg,
+  },
+  { 
+    id: "4", 
+    room_number: "Kamar 4", 
+    name: "Cozy Highland Room", 
+    price_per_night: 550000,
+    description: "Perfect for solo travelers or couples seeking an intimate escape. This charming room offers all essential comforts with a warm, welcoming ambiance.",
+    amenities: ["2 Guests", "Double Bed", "Fast WiFi", "Breakfast"],
+    image: bedroomImg,
+  },
 ];
 
 const WHATSAPP_NUMBER = "6281234567890"; // Replace with actual number
 
+const getAmenityIcon = (amenity: string) => {
+  if (amenity.includes("Guest")) return Users;
+  if (amenity.includes("Bed")) return Bed;
+  if (amenity.includes("WiFi")) return Wifi;
+  if (amenity.includes("Breakfast")) return Coffee;
+  return Users;
+};
+
 const Booking = () => {
   const { toast } = useToast();
-  const [selectedRoom, setSelectedRoom] = useState<string>("");
-  const [guestCount, setGuestCount] = useState<string>("1");
-  const [checkInDate, setCheckInDate] = useState<Date>();
-  const [checkOutDate, setCheckOutDate] = useState<Date>();
-  const [guestName, setGuestName] = useState("");
-  const [guestPhone, setGuestPhone] = useState("");
-  const [guestEmail, setGuestEmail] = useState("");
+  const [selectedRoomId, setSelectedRoomId] = useState<string>("1");
+  const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const selectedRoomData = ROOMS.find((r) => r.id === selectedRoom);
+  const selectedRoom = ROOMS.find((r) => r.id === selectedRoomId)!;
+  
+  // Calculate check-in and check-out from selected dates
+  const checkInDate = selectedDates.length > 0 ? selectedDates[0] : undefined;
+  const checkOutDate = selectedDates.length > 1 ? selectedDates[selectedDates.length - 1] : undefined;
   const nights = checkInDate && checkOutDate ? differenceInDays(checkOutDate, checkInDate) : 0;
-  const totalPrice = selectedRoomData ? selectedRoomData.price_per_night * nights : 0;
+  const totalPrice = selectedRoom ? selectedRoom.price_per_night * (nights || 0) : 0;
 
   const formatCurrency = (amount: number) => {
+    if (amount >= 1000000) {
+      return `Rp ${(amount / 1000000).toFixed(1)}M`;
+    }
+    return `Rp ${(amount / 1000).toFixed(0)}k`;
+  };
+
+  const formatCurrencyFull = (amount: number) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
@@ -55,11 +92,28 @@ const Booking = () => {
     }).format(amount);
   };
 
+  const handleDateSelect = (date: Date | undefined) => {
+    if (!date) return;
+    
+    if (selectedDates.length === 0 || selectedDates.length === 2) {
+      // Start new selection
+      setSelectedDates([date]);
+    } else if (selectedDates.length === 1) {
+      // Complete the range
+      const firstDate = selectedDates[0];
+      if (date > firstDate) {
+        setSelectedDates([firstDate, date]);
+      } else if (date < firstDate) {
+        setSelectedDates([date, firstDate]);
+      }
+    }
+  };
+
   const handleProceedToBooking = async () => {
-    if (!selectedRoom || !checkInDate || !checkOutDate || !guestName || !guestPhone) {
+    if (!checkInDate || !checkOutDate) {
       toast({
-        title: "Incomplete Form",
-        description: "Please fill in all required fields.",
+        title: "Select Dates",
+        description: "Please select check-in and check-out dates.",
         variant: "destructive",
       });
       return;
@@ -68,7 +122,7 @@ const Booking = () => {
     if (nights < 1) {
       toast({
         title: "Invalid Dates",
-        description: "Check-out date must be after check-in date.",
+        description: "Please select at least one night stay.",
         variant: "destructive",
       });
       return;
@@ -79,13 +133,12 @@ const Booking = () => {
     try {
       // Save booking to Supabase
       const { error } = await supabase.from("bookings").insert({
-        room_id: selectedRoom,
-        guest_name: guestName,
-        guest_email: guestEmail || null,
-        guest_phone: guestPhone,
+        room_id: selectedRoomId,
+        guest_name: "Guest", // Will be collected via WhatsApp
+        guest_phone: "",
         check_in_date: format(checkInDate, "yyyy-MM-dd"),
         check_out_date: format(checkOutDate, "yyyy-MM-dd"),
-        number_of_guests: parseInt(guestCount),
+        number_of_guests: 2,
         total_price: totalPrice,
         status: "pending",
         payment_status: "unpaid",
@@ -93,24 +146,20 @@ const Booking = () => {
 
       if (error) {
         console.error("Booking error:", error);
-        // Continue to WhatsApp even if DB fails (they'll setup later)
       }
 
       // Generate WhatsApp message
-      const roomName = selectedRoomData?.name || `Room ${selectedRoom}`;
       const checkIn = format(checkInDate, "dd MMMM yyyy");
       const checkOut = format(checkOutDate, "dd MMMM yyyy");
       
       const message = `Halo, saya mau pesan kamar di Toraja Hill Stop.
 
 📋 *Detail Pemesanan:*
-• Nama: ${guestName}
-• No. HP: ${guestPhone}
-• Kamar: ${roomName}
-• Jumlah Tamu: ${guestCount} orang
+• Kamar: ${selectedRoom.name} (${selectedRoom.room_number})
 • Check-in: ${checkIn}
 • Check-out: ${checkOut}
-• Total: ${formatCurrency(totalPrice)}
+• Durasi: ${nights} malam
+• Total: ${formatCurrencyFull(totalPrice)}
 
 Apakah kamar tersedia?`;
 
@@ -118,8 +167,8 @@ Apakah kamar tersedia?`;
       window.open(whatsappUrl, "_blank");
 
       toast({
-        title: "Booking Request Sent",
-        description: "You will be redirected to WhatsApp to confirm your booking.",
+        title: "Redirecting to WhatsApp",
+        description: "Complete your booking via WhatsApp.",
       });
     } catch (err) {
       console.error("Error:", err);
@@ -138,225 +187,218 @@ Apakah kamar tersedia?`;
         />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
-        {/* Header */}
-        <header className="bg-card border-b border-border sticky top-0 z-50">
-          <div className="container mx-auto px-4 py-4">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="font-body">Back to Home</span>
-            </Link>
-          </div>
-        </header>
+      <div className="min-h-screen bg-background flex flex-col">
+        <Header />
 
-        <main className="container mx-auto px-4 py-8 lg:py-16">
-          <div className="max-w-2xl mx-auto">
+        <main className="flex-1">
+          <div className="container mx-auto px-4 py-8 lg:py-16">
             {/* Title */}
-            <div className="text-center mb-10">
-              <span className="inline-block bg-accent/80 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-4">
-                RESERVATION
+            <div className="mb-8">
+              <span className="text-primary text-sm font-medium tracking-wider uppercase">
+                RESERVATIONS
               </span>
-              <h1 className="font-heading text-3xl lg:text-4xl font-bold text-foreground mb-2">
+              <h1 className="font-heading text-3xl lg:text-4xl font-bold text-foreground mt-2">
                 Book Your Stay
               </h1>
-              <p className="text-muted-foreground font-body">
-                Fill in the details below to reserve your room
+              <p className="text-muted-foreground font-body mt-2 max-w-xl">
+                Select your preferred room to view details and check availability for your retreat in the highlands.
               </p>
             </div>
 
-            {/* Booking Form */}
-            <div className="bg-card rounded-2xl border border-border p-6 lg:p-8 shadow-soft space-y-6">
-              {/* Guest Information */}
-              <div className="space-y-4">
-                <h2 className="font-heading text-lg font-semibold text-foreground flex items-center gap-2">
-                  <Users className="w-5 h-5 text-primary" />
-                  Guest Information
-                </h2>
-                
-                <div className="grid gap-4">
-                  <div>
-                    <Label htmlFor="guestName">Full Name *</Label>
-                    <Input
-                      id="guestName"
-                      placeholder="Enter your full name"
-                      value={guestName}
-                      onChange={(e) => setGuestName(e.target.value)}
-                      className="mt-1.5"
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Left Column - Room Selection & Details */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Room Tabs */}
+                <div>
+                  <h2 className="font-heading text-lg font-semibold text-foreground flex items-center gap-2 mb-4">
+                    <Bed className="w-5 h-5 text-primary" />
+                    Select Room
+                  </h2>
+                  <div className="flex flex-wrap gap-2">
+                    {ROOMS.map((room) => {
+                      const isSelected = selectedRoomId === room.id;
+                      return (
+                        <button
+                          key={room.id}
+                          onClick={() => setSelectedRoomId(room.id)}
+                          className={cn(
+                            "px-4 py-2.5 rounded-full font-medium text-sm transition-all flex items-center gap-2",
+                            isSelected
+                              ? "bg-primary text-primary-foreground shadow-md"
+                              : "bg-card border border-border text-foreground hover:bg-accent/50"
+                          )}
+                        >
+                          {room.id === "1" && <Users className="w-4 h-4" />}
+                          {room.id === "2" && <Bed className="w-4 h-4" />}
+                          {room.id === "3" && <Bed className="w-4 h-4" />}
+                          {room.id === "4" && <Bed className="w-4 h-4" />}
+                          {room.room_number}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Room Card */}
+                <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-soft">
+                  {/* Room Image */}
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={selectedRoom.image}
+                      alt={selectedRoom.name}
+                      className="w-full h-full object-cover"
                     />
+                    <span className="absolute top-4 right-4 bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-xs font-medium uppercase">
+                      Available
+                    </span>
                   </div>
-                  
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="guestPhone">Phone Number *</Label>
-                      <Input
-                        id="guestPhone"
-                        type="tel"
-                        placeholder="08xxxxxxxxxx"
-                        value={guestPhone}
-                        onChange={(e) => setGuestPhone(e.target.value)}
-                        className="mt-1.5"
-                      />
+
+                  {/* Room Info */}
+                  <div className="p-6">
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <h3 className="font-heading text-xl font-bold text-foreground">
+                          {selectedRoom.name}
+                        </h3>
+                        <p className="text-primary text-sm font-medium">
+                          {selectedRoom.room_number}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <span className="font-heading text-2xl font-bold text-foreground">
+                          {formatCurrency(selectedRoom.price_per_night)}
+                        </span>
+                        <p className="text-muted-foreground text-sm">per night</p>
+                      </div>
                     </div>
-                    <div>
-                      <Label htmlFor="guestEmail">Email (Optional)</Label>
-                      <Input
-                        id="guestEmail"
-                        type="email"
-                        placeholder="your@email.com"
-                        value={guestEmail}
-                        onChange={(e) => setGuestEmail(e.target.value)}
-                        className="mt-1.5"
-                      />
+
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-5">
+                      {selectedRoom.description}
+                    </p>
+
+                    {/* Amenities */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                      {selectedRoom.amenities.map((amenity) => {
+                        const Icon = getAmenityIcon(amenity);
+                        return (
+                          <div
+                            key={amenity}
+                            className="flex items-center gap-2 text-sm text-muted-foreground"
+                          >
+                            <Icon className="w-4 h-4 text-primary/70" />
+                            <span>{amenity}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Bottom Actions */}
+                    <div className="flex items-center justify-between pt-4 border-t border-border">
+                      <div className="flex items-center gap-2 text-secondary">
+                        <CheckCircle className="w-4 h-4" />
+                        <span className="text-sm font-medium">Excellent Choice</span>
+                      </div>
+                      <button className="text-primary text-sm font-medium hover:underline">
+                        View Gallery
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Room Selection */}
-              <div className="space-y-4">
-                <h2 className="font-heading text-lg font-semibold text-foreground flex items-center gap-2">
-                  <Home className="w-5 h-5 text-primary" />
-                  Room Selection
-                </h2>
-                
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <Label>Select Room *</Label>
-                    <Select value={selectedRoom} onValueChange={setSelectedRoom}>
-                      <SelectTrigger className="mt-1.5">
-                        <SelectValue placeholder="Choose a room" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {ROOMS.map((room) => (
-                          <SelectItem key={room.id} value={room.id}>
-                            {room.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+              {/* Right Column - Calendar & Summary */}
+              <div className="space-y-6">
+                {/* Calendar */}
+                <div className="bg-card rounded-2xl border border-border p-4 shadow-soft">
+                  <h3 className="font-heading font-semibold text-foreground mb-4">
+                    Select Dates
+                  </h3>
+                  <Calendar
+                    mode="single"
+                    selected={checkInDate}
+                    onSelect={handleDateSelect}
+                    disabled={(date) => date < new Date()}
+                    modifiers={{
+                      selected: selectedDates,
+                      range: checkInDate && checkOutDate ? { from: checkInDate, to: checkOutDate } : undefined,
+                    }}
+                    modifiersStyles={{
+                      selected: { backgroundColor: "hsl(var(--primary))", color: "white" },
+                    }}
+                    className="pointer-events-auto w-full"
+                  />
+                  <div className="flex items-center gap-4 mt-4 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 rounded-full bg-primary" />
+                      <span>Selected</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 rounded-full bg-muted" />
+                      <span>Booked</span>
+                    </div>
                   </div>
-                  
-                  <div>
-                    <Label>Number of Guests *</Label>
-                    <Select value={guestCount} onValueChange={setGuestCount}>
-                      <SelectTrigger className="mt-1.5">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1">1 Guest</SelectItem>
-                        <SelectItem value="2">2 Guests</SelectItem>
-                      </SelectContent>
-                    </Select>
+                </div>
+
+                {/* Summary */}
+                <div className="bg-card rounded-2xl border border-border p-5 shadow-soft">
+                  <h3 className="font-heading font-semibold text-foreground mb-4">
+                    Your Summary
+                  </h3>
+                  <div className="space-y-3 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Room</span>
+                      <span className="text-foreground font-medium">{selectedRoom.room_number}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Check-in</span>
+                      <span className="text-foreground font-medium">
+                        {checkInDate ? format(checkInDate, "MMM dd, yyyy") : "—"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Check-out</span>
+                      <span className="text-foreground font-medium">
+                        {checkOutDate ? format(checkOutDate, "MMM dd, yyyy") : "—"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between pt-3 border-t border-border">
+                      <span className="text-foreground font-semibold">Total Est.</span>
+                      <span className="text-primary font-bold text-lg">
+                        {nights > 0 ? formatCurrency(totalPrice) : "—"}
+                      </span>
+                    </div>
                   </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="space-y-3">
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    disabled={!checkInDate || !checkOutDate}
+                  >
+                    Check Availability
+                  </Button>
+                  <Button
+                    variant="cta"
+                    size="lg"
+                    className="w-full"
+                    onClick={handleProceedToBooking}
+                    disabled={isSubmitting || !checkInDate || !checkOutDate}
+                  >
+                    {isSubmitting ? "Processing..." : "Proceed to Booking"}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                  <p className="text-center text-xs text-muted-foreground">
+                    Pay securely at property.
+                  </p>
                 </div>
               </div>
-
-              {/* Date Selection */}
-              <div className="space-y-4">
-                <h2 className="font-heading text-lg font-semibold text-foreground flex items-center gap-2">
-                  <CalendarIcon className="w-5 h-5 text-primary" />
-                  Select Dates
-                </h2>
-                
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <Label>Check-in Date *</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal mt-1.5",
-                            !checkInDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {checkInDate ? format(checkInDate, "PPP") : "Select date"}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={checkInDate}
-                          onSelect={setCheckInDate}
-                          disabled={(date) => date < new Date()}
-                          initialFocus
-                          className="pointer-events-auto"
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  
-                  <div>
-                    <Label>Check-out Date *</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal mt-1.5",
-                            !checkOutDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {checkOutDate ? format(checkOutDate, "PPP") : "Select date"}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={checkOutDate}
-                          onSelect={setCheckOutDate}
-                          disabled={(date) => date <= (checkInDate || new Date())}
-                          initialFocus
-                          className="pointer-events-auto"
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                </div>
-              </div>
-
-              {/* Summary */}
-              {selectedRoomData && nights > 0 && (
-                <div className="bg-accent/30 rounded-xl p-4 space-y-2">
-                  <h3 className="font-heading font-semibold text-foreground">Booking Summary</h3>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">{selectedRoomData.name}</span>
-                    <span className="text-foreground">{formatCurrency(selectedRoomData.price_per_night)}/night</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Duration</span>
-                    <span className="text-foreground">{nights} night{nights > 1 ? "s" : ""}</span>
-                  </div>
-                  <div className="border-t border-border pt-2 mt-2 flex justify-between font-semibold">
-                    <span className="text-foreground">Total</span>
-                    <span className="text-primary">{formatCurrency(totalPrice)}</span>
-                  </div>
-                </div>
-              )}
-
-              {/* Submit Button */}
-              <Button
-                variant="cta"
-                size="lg"
-                className="w-full"
-                onClick={handleProceedToBooking}
-                disabled={isSubmitting}
-              >
-                <MessageCircle className="w-5 h-5" />
-                {isSubmitting ? "Processing..." : "Proceed to Booking via WhatsApp"}
-              </Button>
-
-              <p className="text-center text-sm text-muted-foreground">
-                You will be redirected to WhatsApp to confirm your booking with our team.
-              </p>
             </div>
           </div>
         </main>
+
+        <Footer />
       </div>
     </>
   );
