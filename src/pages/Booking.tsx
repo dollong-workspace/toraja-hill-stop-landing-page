@@ -429,7 +429,7 @@ Apakah kamar tersedia?`;
                         Kamar {room}
                       </h3>
                       <p className="text-white/90 text-sm">
-                        Rp {formatCurrency(ROOM_PRICE_PER_PERSON)}/orang
+                        {formatCurrency(ROOM_PRICE_PER_PERSON)}/orang
                       </p>
                     </div>
                   </figure>
