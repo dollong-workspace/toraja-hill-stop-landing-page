@@ -46,7 +46,7 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up animation-delay-300">
             <Button variant="cta" size="lg" asChild>
-              <a href="#booking">
+              <a href="/booking">
                 <Calendar className="w-5 h-5" aria-hidden="true" />
                 Check Availability
               </a>

@@ -34,7 +34,7 @@ const Header = () => {
       >
         {/* Logo */}
         <a
-          href="#"
+          href="/"
           className="flex items-center gap-2 group"
           aria-label="Toraja Hill Stop - Home"
         >
