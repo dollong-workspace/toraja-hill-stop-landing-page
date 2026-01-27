@@ -18,7 +18,7 @@ import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-import bedroomImg from "@/assets/bedroom.jpg";
+import bedroomImg from "@/assets/bedroom.jpeg";
 
 // Room data - in production this would come from Supabase
 const ROOMS = [

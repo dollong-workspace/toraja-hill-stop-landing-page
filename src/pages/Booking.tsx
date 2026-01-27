@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-import bedroomImg from "@/assets/bedroom.jpg";
+import bedroomImg from "@/assets/bedroom.jpeg";
 
 // Room data - 3 rooms available (Rp 100k per person per night)
 const ROOM_PRICE_PER_PERSON = 100000;

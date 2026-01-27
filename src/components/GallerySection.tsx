@@ -1,8 +1,8 @@
-import bedroomImage from "@/assets/bedroom.jpg";
+import bedroomImage from "@/assets/bedroom.jpeg";
 import buntuBurakeImage from "@/assets/burake.jpg";
 import breakfastImage from "@/assets/breakfast.jpg";
 import bathroomImage from "@/assets/bathroom.jpg";
-import nightExteriorImage from "@/assets/night-exterior.jpg";
+import burakeViewImage from "@/assets/burake-view.jpeg";
 import nightExterior2Image from "@/assets/night-exterior-2.jpg";
 import outsideViewImage from "@/assets/outside-view.jpg";
 
@@ -29,21 +29,21 @@ const galleryImages = [
   },
   {
     src: nightExterior2Image,
-    alt: "Delicious breakfast spread with fresh fruits and coffee at Toraja Hill Stop",
+    alt: "Toraja Hill Stop Guesthouse exterior at night with warm lighting and tropical garden",
     className: "row-span-2",
   },
   {
-    src: outsideViewImage,
+    src: burakeViewImage,
     alt: "Exterior view of Toraja Hill Stop Guesthouse during the day",
     className: "md:hidden",
   },
   {
-    src: nightExteriorImage,
+    src: outsideViewImage,
     alt: "Toraja Hill Stop Guesthouse exterior at night with warm lighting and tropical garden",
     className: "col-span-2",
   },
   {
-    src: outsideViewImage,
+    src: burakeViewImage,
     alt: "Exterior view of Toraja Hill Stop Guesthouse during the day",
     className: "hidden md:block",
   },
