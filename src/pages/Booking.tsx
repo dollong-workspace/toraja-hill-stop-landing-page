@@ -194,11 +194,7 @@ Apakah kamar tersedia?`;
                 Pesan Kamar Anda
               </h1>
               <p className="text-muted-foreground text-sm md:text-base max-w-2xl">
-                3 kamar nyaman, harga terjangkau - hanya{" "}
-                <span className="font-bold text-primary">
-                  Rp {formatCurrency(ROOM_PRICE_PER_PERSON)}
-                </span>{" "}
-                per orang per malam.
+                3 kamar nyaman, harga terjangkau
               </p>
             </div>
           </div>
@@ -406,7 +402,7 @@ Apakah kamar tersedia?`;
           </div>
 
           {/* Gallery Section */}
-          <div className="bg-card py-12 lg:py-16">
+          {/* <div className="bg-card py-12 lg:py-16">
             <div className="container mx-auto px-4 lg:px-8">
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
                 Galeri Kamar Kami
@@ -436,7 +432,7 @@ Apakah kamar tersedia?`;
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
         </main>
 
         <Footer />

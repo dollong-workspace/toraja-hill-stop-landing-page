@@ -10,7 +10,7 @@ const galleryImages = [
   {
     src: bedroomImage,
     alt: "Cozy bedroom with pink and terracotta bedding at Toraja Hill Stop Guesthouse",
-    className: "row-span-2",
+    className: "row-span-2 left-0",
   },
   {
     src: buntuBurakeImage,

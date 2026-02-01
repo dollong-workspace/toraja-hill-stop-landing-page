@@ -1,5 +1,5 @@
 import { Wifi, Car, ShowerHead, Utensils } from "lucide-react";
-import interiorImage from "@/assets/interior-decor.jpg";
+import interiorImage from "@/assets/interior.jpg";
 
 const amenities = [
   {
