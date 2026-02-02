@@ -2,7 +2,9 @@
 
 **Aesthetic Website for Your Guesthouse. Built in Hours, Not Weeks.**
 
-![Toraja Hill Stop Preview](public/logo.png)
+![Toraja Hill Stop - Hero Section](public/assets/demo/preview-hero.png)
+
+![Toraja Hill Stop - Location Section](public/assets/demo/preview-location.png)
 
 ---
 
@@ -27,6 +29,7 @@ A modern, aesthetic, and mobile-friendly website that:
 - 💬 **WhatsApp Booking** — One click to connect directly with the owner, zero OTA commissions
 - 📊 **Booking Tracking** — Every inquiry saved to database for analysis
 - ⚡ **Blazing Fast** — Built with React & Vite, loads in milliseconds
+- 🗨️ **Live Chat Support** — Integrated Tawk.to for real-time visitor engagement
 
 ---
 
@@ -41,6 +44,12 @@ A modern, aesthetic, and mobile-friendly website that:
 - Intuitive guest input fields
 - Automatic price calculation
 - Direct WhatsApp connection with pre-formatted messages
+
+### 💬 Tawk.to Live Chat Integration
+- **Real-time visitor engagement** — Chat with potential guests instantly
+- **Free forever** — No additional costs for live chat functionality
+- **Mobile app support** — Respond to inquiries on the go
+- **Visitor analytics** — Know who's browsing your website
 
 ### 🎯 SEO Ready
 - Optimized meta tags
@@ -71,6 +80,7 @@ Built with modern, battle-tested technologies:
 - **Framework:** React 18 + Vite
 - **Styling:** Tailwind CSS + shadcn/ui
 - **Backend:** Lovable Cloud (Supabase)
+- **Live Chat:** Tawk.to
 - **Icons:** Lucide React
 - **Typography:** Playfair Display + Inter
 
