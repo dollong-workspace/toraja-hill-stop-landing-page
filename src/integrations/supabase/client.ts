@@ -1,9 +1,19 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Create a mock client if credentials are missing to prevent app crashes
+const createSupabaseClient = (): SupabaseClient | null => {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    console.warn('Supabase credentials not configured. Booking tracking will be disabled.');
+    return null;
+  }
+  return createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+};
+
+export const supabase = createSupabaseClient();
+export const isSupabaseConfigured = !!supabase;
 
 // Types for database
 export type BookingStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed';
