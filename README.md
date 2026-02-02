@@ -1,72 +1,72 @@
 # 🏔️ Toraja Hill Stop
 
-**Website Estetik untuk Guesthouse Anda. Dibuat dalam Hitungan Jam.**
+**Aesthetic Website for Your Guesthouse. Built in Hours, Not Weeks.**
 
 ![Toraja Hill Stop Preview](public/logo.png)
 
 ---
 
-## 🤔 Masalahnya: Bisnis Penginapan Tanpa Kehadiran Digital
+## 🤔 The Problem: Hospitality Business Without Digital Presence
 
-Banyak guesthouse, homestay, dan penginapan kecil yang:
+Many guesthouses, homestays, and small accommodations are stuck with:
 
-1. **Tidak punya website** — Hanya mengandalkan OTA (Traveloka, Booking.com) yang memotong 15-20% komisi.
-2. **Website seadanya** — Template kaku yang tidak mencerminkan keindahan dan keunikan tempat mereka.
-3. **Proses booking ribet** — Calon tamu bingung harus hubungi kemana.
+1. **No website at all** — Relying solely on OTAs (Booking.com, Airbnb) that take 15-20% commission.
+2. **Generic templates** — Stiff designs that fail to capture the beauty and uniqueness of their place.
+3. **Complicated booking process** — Potential guests don't know how to reach out.
 
-> *"Kalau tempat saya sebagus ini, kenapa website-nya tidak seindah pemandangan di sini?"*
-
----
-
-## ✨ Solusinya: Toraja Hill Stop
-
-Website modern, estetik, dan mobile-friendly yang:
-
-- 🎨 **Desain yang mencerminkan karakter** — Warna hangat terracotta, tipografi elegan, nuansa pegunungan yang menenangkan
-- 📱 **100% Responsive** — Tampil sempurna di HP, tablet, dan desktop
-- 💬 **Booking via WhatsApp** — Satu klik langsung terhubung dengan pemilik, tanpa komisi OTA
-- 📊 **Tracking Booking** — Setiap inquiry tersimpan di database untuk analisis
-- ⚡ **Super Cepat** — Dibangun dengan React & Vite, loading dalam hitungan detik
+> *"If my place is this beautiful, why doesn't my website reflect that?"*
 
 ---
 
-## 🖼️ Fitur Utama
+## ✨ The Solution: Toraja Hill Stop
 
-### 🏠 Landing Page yang Memukau
-- Hero section dengan gambar pemandangan pegunungan
-- Gallery interaktif dengan hover effects
-- Integrasi Google Maps untuk lokasi
+A modern, aesthetic, and mobile-friendly website that:
 
-### 📝 Form Booking Simpel
-- Input data tamu yang intuitif
-- Kalkulasi harga otomatis
-- Langsung terhubung ke WhatsApp dengan pesan pre-formatted
+- 🎨 **Design that reflects character** — Warm terracotta colors, elegant typography, calming mountain vibes
+- 📱 **100% Responsive** — Looks perfect on mobile, tablet, and desktop
+- 💬 **WhatsApp Booking** — One click to connect directly with the owner, zero OTA commissions
+- 📊 **Booking Tracking** — Every inquiry saved to database for analysis
+- ⚡ **Blazing Fast** — Built with React & Vite, loads in milliseconds
+
+---
+
+## 🖼️ Key Features
+
+### 🏠 Stunning Landing Page
+- Hero section with breathtaking mountain scenery
+- Interactive gallery with smooth hover effects
+- Google Maps integration for location
+
+### 📝 Simple Booking Form
+- Intuitive guest input fields
+- Automatic price calculation
+- Direct WhatsApp connection with pre-formatted messages
 
 ### 🎯 SEO Ready
-- Meta tags teroptimasi
+- Optimized meta tags
 - Semantic HTML structure
-- Fast loading untuk ranking Google
+- Fast loading for better Google rankings
 
 ---
 
-## ⚡ Dibuat dalam Hitungan Jam
+## ⚡ Built in Hours, Not Weeks
 
-Ya, Anda tidak salah baca.
+Yes, you read that right.
 
-Website seprofesional ini **tidak butuh berminggu-minggu development**. Dengan tools modern dan pengalaman yang tepat, website estetik untuk bisnis Anda bisa live dalam **satu hari kerja**.
+A website this professional **doesn't require weeks of development**. With modern tools and the right expertise, an aesthetic website for your business can go live in **a single working day**.
 
-| Tradisional | Dengan Saya |
-|-------------|-------------|
-| 2-4 minggu development | **< 1 hari** |
-| Meeting berkali-kali | Chat singkat via WhatsApp |
-| Revisi tanpa ujung | Iterasi cepat real-time |
-| Budget puluhan juta | **Sangat terjangkau** |
+| Traditional Approach | With Me |
+|---------------------|---------|
+| 2-4 weeks development | **< 1 day** |
+| Multiple meetings | Quick chat via WhatsApp |
+| Endless revisions | Real-time iterations |
+| Budget in thousands | **Very affordable** |
 
 ---
 
 ## 🛠️ Tech Stack
 
-Dibangun dengan teknologi modern yang battle-tested:
+Built with modern, battle-tested technologies:
 
 - **Framework:** React 18 + Vite
 - **Styling:** Tailwind CSS + shadcn/ui
@@ -76,23 +76,23 @@ Dibangun dengan teknologi modern yang battle-tested:
 
 ---
 
-## 💎 Mau Website Serupa untuk Bisnis Anda?
+## 💎 Want a Similar Website for Your Business?
 
-Apakah Anda punya:
+Do you own:
 - 🏡 Guesthouse / Homestay / Villa
-- ☕ Cafe dengan view aesthetic
-- 🍽️ Restaurant dengan ambiance unik
-- 🏪 Bisnis lokal yang butuh online presence
+- ☕ Cafe with aesthetic views
+- 🍽️ Restaurant with unique ambiance
+- 🏪 Local business needing online presence
 
-**Jangan biarkan bisnis Anda kalah saing hanya karena tidak punya website yang proper.**
+**Don't let your business fall behind just because you lack a proper website.**
 
-### 📩 Hubungi Saya Sekarang
+### 📩 Contact Me Now
 
 <a href="https://www.linkedin.com/in/doltons-edward-nicholas-p/" target="_blank">
   <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
 </a>
 
-👉 **[Chat di LinkedIn](https://www.linkedin.com/in/doltons-edward-nicholas-p/)** — Ceritakan bisnis Anda, saya bantu wujudkan website impian Anda.
+👉 **[Chat on LinkedIn](https://www.linkedin.com/in/doltons-edward-nicholas-p/)** — Tell me about your business, and I'll help bring your dream website to life.
 
 ---
 
@@ -118,5 +118,5 @@ MIT License - Feel free to use as inspiration for your own projects.
 ---
 
 <p align="center">
-  <i>Dibuat dengan ☕ dan cinta di Indonesia</i>
+  <i>Made with ☕ and love in Indonesia</i>
 </p>
