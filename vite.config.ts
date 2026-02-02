@@ -19,6 +19,6 @@ export default defineConfig(({ mode }) => ({
     },
   },
   preview: {
-    middlewareMode: false,
+    port: 8080,
   },
 }));
