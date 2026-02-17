@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { Wifi, Coffee, Mountain, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabase, isSupabaseConfigured } from "@/lib/supabase-safe";
 import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -105,22 +105,29 @@ const Booking = () => {
       const totalPrice =
         ROOM_PRICE_PER_PERSON * parseInt(formData.numberOfGuests) * nights;
 
-      // Save to Supabase
-      const { error } = await supabase.from("bookings").insert({
-        guest_name: formData.guestName,
-        guest_phone: formData.guestPhone,
-        guest_email: formData.guestEmail || null,
-        check_in_date: formData.checkInDate,
-        check_out_date: formData.checkOutDate,
-        number_of_guests: parseInt(formData.numberOfGuests),
-        number_of_rooms: parseInt(formData.numberOfRooms),
-        total_price: totalPrice,
-        status: "pending",
-        payment_status: "unpaid",
-      });
+      // Save to database if available (non-blocking)
+      const supabase = getSupabase();
+      if (supabase) {
+        try {
+          const { error } = await supabase.from("bookings").insert({
+            guest_name: formData.guestName,
+            guest_phone: formData.guestPhone,
+            guest_email: formData.guestEmail || null,
+            check_in_date: formData.checkInDate,
+            check_out_date: formData.checkOutDate,
+            number_of_guests: parseInt(formData.numberOfGuests),
+            number_of_rooms: parseInt(formData.numberOfRooms),
+            total_price: totalPrice,
+            status: "pending",
+            payment_status: "unpaid",
+          });
 
-      if (error) {
-        console.error("Booking error:", error);
+          if (error) {
+            console.error("Booking save error:", error);
+          }
+        } catch (dbError) {
+          console.error("Database error:", dbError);
+        }
       }
 
       // Generate WhatsApp message
